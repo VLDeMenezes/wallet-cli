@@ -13,12 +13,13 @@ program
 
 program
   .command("sync-api")
-  .description("Sincroniza tipos TypeScript desde el OpenAPI/Swagger de NestJS")
+  .description(
+    "Sincroniza tipos TypeScript desde el OpenAPI/Swagger json de tu backend",
+  )
   .option(
     "-u, --url <url>",
     "URL del JSON de Swagger",
-    process.env.WALLET_SWAGGER_URL ||
-      "https://beland-backend-production-e86c.up.railway.app/docs",
+    process.env.WALLET_SWAGGER_URL || "localhost:3000",
   )
   .option(
     "-o, --out <path>",
@@ -43,9 +44,7 @@ program
 
 program
   .command("webhook")
-  .description(
-    "Envía un evento de webhook firmado con HMAC-SHA256 al backend NestJS",
-  )
+  .description("Envía un evento de webhook firmado con HMAC-SHA256 al backend")
   .argument(
     "<event>",
     "Evento a simular: deposit.settled | transfer.settled | transfer.failed",
