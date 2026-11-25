@@ -153,10 +153,12 @@ async function runWebhook(options) {
 // src/index.ts
 var program = new Command();
 program.name("wallet-cli").description("CLI interna para flujo de Beland").version("0.1.0");
-program.command("sync-api").description("Sincroniza tipos TypeScript desde el OpenAPI/Swagger de NestJS").option(
+program.command("sync-api").description(
+  "Sincroniza tipos TypeScript desde el OpenAPI/Swagger json de tu backend"
+).option(
   "-u, --url <url>",
   "URL del JSON de Swagger",
-  process.env.WALLET_SWAGGER_URL || "https://beland-backend-production-e86c.up.railway.app/docs"
+  process.env.WALLET_SWAGGER_URL || "localhost:3000"
 ).option(
   "-o, --out <path>",
   "Ruta de salida de los tipos generados",
@@ -175,9 +177,7 @@ program.command("sync-api").description("Sincroniza tipos TypeScript desde el Op
     process.exit(1);
   }
 });
-program.command("webhook").description(
-  "Env\xEDa un evento de webhook firmado con HMAC-SHA256 al backend NestJS"
-).argument(
+program.command("webhook").description("Env\xEDa un evento de webhook firmado con HMAC-SHA256 al backend").argument(
   "<event>",
   "Evento a simular: deposit.settled | transfer.settled | transfer.failed"
 ).option(

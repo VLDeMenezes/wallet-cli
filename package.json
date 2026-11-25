@@ -1,5 +1,5 @@
 {
-  "name": "@VLDM/wallet-cli",
+  "name": "@-vldm/wallet-cli",
   "version": "0.1.0",
   "description": "CLI de desarrollo para sincronizar contratos OpenAPI y simular webhooks a una wallet",
   "type": "module",
