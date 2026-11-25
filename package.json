@@ -1,0 +1,30 @@
+{
+  "name": "@VLDM/wallet-cli",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "type": "module",
+  "bin": {
+    "wallet-cli": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --external openapi-typescript --external @redocly/openapi-core",
+    "prepack": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^15.1.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.10",
+    "openapi-typescript": "^7.13.0",
+    "tsup": "^9.0.0",
+    "typescript": "^5.0.0"
+  }
+}
