@@ -2,6 +2,7 @@
 import { Command } from "commander";
 import pc from "picocolors";
 import { runSyncApi } from "./commands/sync-api.js";
+import { runWebhook } from "./commands/webhook.js";
 
 const program = new Command();
 
@@ -36,6 +37,46 @@ program
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.error(pc.red(`✖ Error en sync-api: ${message}`));
+      process.exit(1);
+    }
+  });
+
+program
+  .command("webhook")
+  .description(
+    "Envía un evento de webhook firmado con HMAC-SHA256 al backend NestJS",
+  )
+  .argument(
+    "<event>",
+    "Evento a simular: deposit.settled | transfer.settled | transfer.failed",
+  )
+  .option(
+    "-u, --url <url>",
+    "URL del endpoint de webhooks en NestJS",
+    process.env.WALLET_WEBHOOK_URL || "http://localhost:3000/webhooks/psp",
+  )
+  .option(
+    "-s, --secret <secret>",
+    "Secreto compartido para firmar con HMAC-SHA256",
+    process.env.WALLET_WEBHOOK_SECRET || "",
+  )
+  .option("--user-id <id>", "ID de usuario de prueba")
+  .option("--tx-id <id>", "ID de transacción de prueba")
+  .option("--amount <amount>", "Monto de la operación (ej. 50.00)")
+  .option("--currency <code>", "Código de moneda ISO", "EUR")
+  .option("--reason <reason>", "Motivo de fallo para transfer.failed")
+  .option(
+    "--header-name <name>",
+    "Nombre de la cabecera de firma",
+    "X-Wallet-Signature",
+  )
+  .action(async (event, opts) => {
+    try {
+      await runWebhook({ ...opts, event });
+      process.exit(0);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(pc.red(`✖ Error en webhook: ${message}`));
       process.exit(1);
     }
   });
