@@ -77,4 +77,8 @@ The command also sends an `X-Webhook-Id` header. Use a test endpoint and test cr
 
 Source code is in `src/`. After making changes, run `npm run build` to compile the CLI and generate its type declarations.
 
+## License
+
+This project is licensed under the [MIT License](./LICENSE). You may use, copy, modify, distribute, sublicense, and sell copies of the software, provided the copyright and license notices are included.
+
 ## Build and Develop BY VLDM
